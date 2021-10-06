@@ -116,6 +116,50 @@ head(combine)
 
 ```{r cutdown}
 
-cutdown
+cutdown <- combine %>%
+    select(GEOID, P0010001, P0010002, P0010003, P0010004, P0010005, P0010006, P0010007, P0010008, P0010009, P0020002, P0020003, P0030001, P0030002, P0030003, P0030004, P0030005, P0030006, P0030007, P0030008, P0030009, P0040002, H0010001, H0010002, H0010003, P0050001, P0050002, P0050007, TRACT, BLOCK, BLKGRP, PLACENS, PLACE)
+
+dim(cutdown)
+
+```
+
+
+```{r summary} 
+cn <- cutdown
+
+cn$P0010001 <- as.numeric(cutdown$P0010001)
+cn$P0010002 <- as.numeric(cutdown$P0010002)
+cn$P0010003 <- as.numeric(cutdown$P0010003)
+cn$P0010004 <- as.numeric(cutdown$P0010004)
+cn$P0010005 <- as.numeric(cutdown$P0010005)
+cn$P0010006 <- as.numeric(cutdown$P0010006)
+cn$P0010007 <- as.numeric(cutdown$P0010007)
+cn$P0010008 <- as.numeric(cutdown$P0010008)
+cn$P0010009 <- as.numeric(cutdown$P0010009)
+cn$P0020002 <- as.numeric(cutdown$P0020002)
+cn$P0020003 <- as.numeric(cutdown$P0020003)
+cn$P0030001 <- as.numeric(cutdown$P0030001)
+cn$P0030002 <- as.numeric(cutdown$P0030002)
+cn$P0030003 <- as.numeric(cutdown$P0030003)
+cn$P0030004 <- as.numeric(cutdown$P0030004)
+cn$P0030005 <- as.numeric(cutdown$P0030005)
+cn$P0030006 <- as.numeric(cutdown$P0030006)
+cn$P0030007 <- as.numeric(cutdown$P0030007)
+cn$P0030008 <- as.numeric(cutdown$P0030008)
+cn$P0030009 <- as.numeric(cutdown$P0030009)
+cn$P0040002 <- as.numeric(cutdown$P0040002)
+cn$H0010001 <- as.numeric(cutdown$H0010001)
+cn$H0010002 <- as.numeric(cutdown$H0010002)
+cn$H0010003 <- as.numeric(cutdown$H0010003)
+cn$P0050001 <- as.numeric(cutdown$P0050001)
+cn$P0050002 <- as.numeric(cutdown$P0050002)
+cn$P0050007 <- as.numeric(cutdown$P0050007)
+
+summary(cutNumbers)
+
+```
+
+```{r summary 2}
+summary(cn)
 
 ```
