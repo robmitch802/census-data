@@ -109,38 +109,46 @@ combine <- combine[order(combine$LOGRECNO), c("FILEID", "STUSAB", "SUMLEV", "GEO
 ```
 
 ```{r header info}
-head(combine)
+#slim it down
+comboSlim <- select(combine, "FILEID", "SUMLEV", "LOGRECNO", "GEOID", "GEOCODE", "AREALAND",
+"AREAWATR", "BASENAME", "NAME", "FUNCSTAT", "GCUNI", "POP100", "HU100", "INTPTLAT", "INTPTLON", 
+"LSADC", "PARTFLAG", "PLACENS", "TRACT", "BLKGRP", "BLOCK", paste0("P00", c(10001:10071, 20001:20073)))
+
+head(comboSlim, 125)
 
 ```
 
 ```{r filter-rows}
+comboSlimCo <- comboSlim %>%
+  filter(LSADC == "06")
 
-tract <- combine %>%
-  filter(LSADC == "CT")
+comboSlimCo <- head(comboSlimCo, 114)
 
-tract$P0010001 <- as.numeric(tract$P0010001)
-  
-tract
+head(comboSlimCo, 125)
 
 ```
 
 ```{r tract filter}
 pop <- tract$P0010001
 
-
-
-pop
+summary(pop)
 
 ```
 
 ```{r ggplot-map}
 
 missouri_tracts <- tracts('Missouri')
+missouri_districts <- congressional_districts('Missouri')
+missouri_counties <- counties('Missouri')
 
-ggplot(missouri_tracts) +
+z <- leaflet() %>%
+  
+
+ggplot(missouri_counties) +
   geom_sf() +
   theme_void()
 
-
 ```
+
+
 
