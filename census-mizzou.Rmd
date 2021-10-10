@@ -124,29 +124,59 @@ comboSlimCo <- comboSlim %>%
 
 comboSlimCo <- head(comboSlimCo, 114)
 
-head(comboSlimCo, 125)
+summary(comboSlimCo)
 
 ```
 
 ```{r tract filter}
-pop <- tract$P0010001
+pop <- select(comboSlimCo, GEOID, P0010001, P0010004)
 
-summary(pop)
+pop$P0010001 <- as.integer(pop$P0010001)
+pop$P0010004 <- as.integer(pop$P0010004)
+
+pop <- mutate(pop, proportion = as.numeric(P0010004/P0010001))
+
+head(pop, 15)
 
 ```
 
+```{r histo}
+ggplot(pop, aes(x=proportion)) + geom_histogram(binwidth = .005)
+
+
+```
+
+
 ```{r ggplot-map}
 
-missouri_tracts <- tracts('Missouri')
-missouri_districts <- congressional_districts('Missouri')
 missouri_counties <- counties('Missouri')
 
-z <- leaflet() %>%
-  
+race <- geo_join(missouri_counties, pop, "GEOID", "GEOID")
 
-ggplot(missouri_counties) +
-  geom_sf() +
-  theme_void()
+#bins <- c(0, .05, .10, .15, .20, .25, .35, .50, Inf)
+
+#assign the bins a color palette
+pal <- colorBin("Blues", domain = race$proportion, 8, pretty=FALSE)
+
+m <- leaflet(race) %>%
+  setView(-92.4567826, 38.3507500, 7) %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addPolygons(
+    fillColor = ~pal(race$proportion),
+    stroke = TRUE,
+    smoothFactor = 0.2,
+    weight = 0.5,
+    fillOpacity = 0.7,
+    color = ~pal(race$proportion))%>%
+  addLegend(
+    position = "bottomright",
+    pal = pal,
+    values = race$proportion,
+    title = "Proportion of Black residents.",
+    opacity = 1
+  )
+m
+
 
 ```
 
