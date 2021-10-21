@@ -41,10 +41,13 @@ for (package in packages) {
 # -----------------------------
 # Specify location of the files
 # -----------------------------
-header_file_path <- "./mogeo2020.pl"
-part1_file_path  <- "./mo000012020.pl"
-part2_file_path  <- "./mo000022020.pl"
-part3_file_path  <- "./mo000032020.pl"
+twenty_header_file_path <- "./mogeo2020.pl"
+twenty_part1_file_path  <- "./mo000012020.pl"
+twenty_part2_file_path  <- "./mo000022020.pl"
+twenty_part3_file_path  <- "./mo000032020.pl"
+ten_header_file_path <- "./mogeo2010.pl"
+ten_part1_file_path  <- "./mo000012010.pl"
+ten_part2_file_path  <- "./mo000022010.pl"
 
 ```
 
@@ -52,16 +55,36 @@ part3_file_path  <- "./mo000032020.pl"
 # -----------------------------
 # Import the data
 # -----------------------------
-header <- read.delim(header_file_path, header=FALSE, colClasses="character", sep="|")
-part1  <- read.delim(part1_file_path,  header=FALSE, colClasses="character", sep="|")
-part2  <- read.delim(part2_file_path,  header=FALSE, colClasses="character", sep="|")
-part3  <- read.delim(part3_file_path,  header=FALSE, colClasses="character", sep="|")
+twenty_header <- read.delim(twenty_header_file_path, header=FALSE, colClasses="character", sep="|")
+twenty_part1  <- read.delim(twenty_part1_file_path,  header=FALSE, colClasses="character", sep="|")
+twenty_part2  <- read.delim(twenty_part2_file_path,  header=FALSE, colClasses="character", sep="|")
+twenty_part3  <- read.delim(twenty_part3_file_path,  header=FALSE, colClasses="character", sep="|")
+
+ten_part1  <- read.delim(ten_part1_file_path,  header=FALSE, colClasses="character", sep=",")
+ten_part2  <- read.delim(ten_part2_file_path,  header=FALSE, colClasses="character", sep=",")
 
 ```
 
-```{r assign colnames}
+```{r import 2010}
+g<-c(6,2,3,2,3,2,7,1,1,2,3,2,2,5,2,2,5,2,2,6,1,4,2,5,2,2,4,5,2,1,3,5,2,6,1,5,2,5,2,5,3,5,2,5,3,1,1,5,2,1,1,2,3,3,6,1,3,5,5,2,5,5,5,14,14,90,1,1,9,9,11,12,2,1,6,5,8,8,8,8,8,8,8,8,8,2,2,2,3,3,3,3,3,3,2,2,2,1,1,5,18)
 
-colnames(header) <- c("FILEID", "STUSAB", "SUMLEV", "GEOVAR", "GEOCOMP", "CHARITER", "CIFSN", "LOGRECNO", "GEOID", 
+ten_header <- read.fwf(ten_header_file_path, width=g)
+
+
+```
+
+
+```{r header ids}
+
+head(ten_header)
+
+```
+
+
+
+```{r assign colnames for 2020}
+
+colnames(twenty_header) <- c("FILEID", "STUSAB", "SUMLEV", "GEOVAR", "GEOCOMP", "CHARITER", "CIFSN", "LOGRECNO", "GEOID", 
   "GEOCODE", "REGION", "DIVISION", "STATE", "STATENS", "COUNTY", "COUNTYCC", "COUNTYNS", "COUSUB",
   "COUSUBCC", "COUSUBNS", "SUBMCD", "SUBMCDCC", "SUBMCDNS", "ESTATE", "ESTATECC", "ESTATENS", 
   "CONCIT", "CONCITCC", "CONCITNS", "PLACE", "PLACECC", "PLACENS", "TRACT", "BLKGRP", "BLOCK", 
@@ -72,12 +95,12 @@ colnames(header) <- c("FILEID", "STUSAB", "SUMLEV", "GEOVAR", "GEOCOMP", "CHARIT
   "SLDL24", "SLDL26", "SLDL28", "VTD", "VTDI", "ZCTA", "SDELM", "SDSEC", "SDUNI", "PUMA", "AREALAND",
   "AREAWATR", "BASENAME", "NAME", "FUNCSTAT", "GCUNI", "POP100", "HU100", "INTPTLAT", "INTPTLON", 
   "LSADC", "PARTFLAG", "UGA")
-colnames(part1) <- c("FILEID", "STUSAB", "CHARITER", "CIFSN", "LOGRECNO", 
+colnames(twenty_part1) <- c("FILEID", "STUSAB", "CHARITER", "CIFSN", "LOGRECNO", 
                      paste0("P00", c(10001:10071, 20001:20073)))
-colnames(part2) <- c("FILEID", "STUSAB", "CHARITER", "CIFSN", "LOGRECNO", 
+colnames(twenty_part2) <- c("FILEID", "STUSAB", "CHARITER", "CIFSN", "LOGRECNO", 
                      paste0("P00", c(30001:30071, 40001:40073)), 
                      paste0("H00", 10001:10003))
-colnames(part3) <- c("FILEID", "STUSAB", "CHARITER", "CIFSN", "LOGRECNO",
+colnames(twenty_part3) <- c("FILEID", "STUSAB", "CHARITER", "CIFSN", "LOGRECNO",
                      paste0("P00", 50001:50010))
 
 ```
